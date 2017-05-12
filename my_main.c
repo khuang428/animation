@@ -161,6 +161,7 @@ void print_knobs() {
 void my_main() {
 
   int i;
+  char * name,s,fname;
   struct matrix *tmp;
   struct stack *systems;
   screen t;
@@ -324,13 +325,25 @@ void my_main() {
 	  pop(systems);
 	  break;
 	case SAVE:
-	  printf("Save: %s",op[i].op.save.p->name);
-	  save_extension(t, op[i].op.save.p->name);
+	  printf("Save: %s",name);
+	  sprintf(s, "%03d",i);
+	  fname = "anim/" + name + s;
+	  save_extension(t,fname);
 	  break;
 	case DISPLAY:
 	  printf("Display");
 	  display(t);
 	  break;
+	case SET:
+
+	case SETKNOBS:
+
+	case FRAMES:
+
+	case VARY:
+
+	case BASENAME:
+	  name = op[i].op.basename.p->name;
     }
       printf("\n");
     }
