@@ -72,8 +72,20 @@ void first_pass() {
   //in order to use name and num_frames
   //they must be extern variables
   extern int num_frames;
-  extern char name[128]; 
-
+  extern char name[128];
+  switch(op[i].opcode){
+  case SET:
+    set_value(lookup_symbol(op[i].op.set.p->name),op[i].op.set.val);
+  case SETKNOBS:
+    int i;
+    for(i = 0;i < lastsym;i++){
+      set_value((SYMTAB *) &(symtab[i]),op[i].op.setknobs.value);
+    }
+  case FRAMES:
+    num_frames = op[i].op.frames.num_frames;
+  case BASENAME:
+    symtab->name = op[i].op.basename.p->name;
+  }
   return;
 }
 
@@ -325,25 +337,13 @@ void my_main() {
 	  pop(systems);
 	  break;
 	case SAVE:
-	  printf("Save: %s",name);
-	  sprintf(s, "%03d",i);
-	  fname = "anim/" + name + s;
-	  save_extension(t,fname);
+	  printf("Save : %s", op[i].op.save.p->name);
+	  save_extension(t,op[i].op.save.p->name);
 	  break;
 	case DISPLAY:
 	  printf("Display");
 	  display(t);
 	  break;
-	case SET:
-
-	case SETKNOBS:
-
-	case FRAMES:
-
-	case VARY:
-
-	case BASENAME:
-	  name = op[i].op.basename.p->name;
     }
       printf("\n");
     }
