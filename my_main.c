@@ -14,19 +14,19 @@
   pop: remove the top matrix on the origin stack
 
   move/scale/rotate: create a transformation matrix 
-                     based on the provided values, then 
-		     multiply the current top of the
-		     origins stack by it.
+  based on the provided values, then 
+  multiply the current top of the
+  origins stack by it.
 
   box/sphere/torus: create a solid object based on the
-                    provided values. Store that in a 
-		    temporary matrix, multiply it by the
-		    current top of the origins stack, then
-		    call draw_polygons.
+  provided values. Store that in a 
+  temporary matrix, multiply it by the
+  current top of the origins stack, then
+  call draw_polygons.
 
   line: create a line based on the provided values. Store 
-        that in a temporary matrix, multiply it by the
-	current top of the origins stack, then call draw_lines.
+  that in a temporary matrix, multiply it by the
+  current top of the origins stack, then call draw_lines.
 
   save: call save_extension with the provided filename
 
@@ -111,19 +111,23 @@ void first_pass() {
   jdyrlandweaver
   ====================*/
 struct vary_node ** second_pass() {
+  switch(op[i].opcode){
+  case VARY:
+    
+  }
   return NULL;
 }
 
 
 /*======== void print_knobs() ==========
-Inputs:   
-Returns: 
+  Inputs:   
+  Returns: 
 
-Goes through symtab and display all the knobs and their
-currnt values
+  Goes through symtab and display all the knobs and their
+  currnt values
 
-jdyrlandweaver
-====================*/
+  jdyrlandweaver
+  ====================*/
 void print_knobs() {
   
   int i;
@@ -172,7 +176,7 @@ void print_knobs() {
   ====================*/
 void my_main() {
 
-  int i;
+  int i,j;
   char * name,s,fname;
   struct matrix *tmp;
   struct stack *systems;
@@ -187,10 +191,10 @@ void my_main() {
   g.red = 0;
   g.green = 0;
   g.blue = 0;
+  for(j=0;j<num_frames;j++){
+    for (i=0;i<lastop;i++) {
 
-  for (i=0;i<lastop;i++) {
-
-    printf("%d: ",i);
+      printf("%d: ",i);
       switch (op[i].opcode)
 	{
 	case SPHERE:
@@ -344,7 +348,11 @@ void my_main() {
 	  printf("Display");
 	  display(t);
 	  break;
-    }
+	}
       printf("\n");
     }
+    save_extension(t,sprintf(name, "%03d", j+1));
+    clear_screen(t);
+    systems = new_stack();
+  }
 }
