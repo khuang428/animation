@@ -392,7 +392,6 @@ void my_main() {
   sprintf(filename, "%s03%d%s",name,j,".png");
   save_extension(t,filename);
   }
-  freeArrayList(knobs);
   chdir("..");
   char aname[50];
   strcat(aname,name);
