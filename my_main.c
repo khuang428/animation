@@ -124,7 +124,7 @@ struct vary_node ** second_pass() {
   struct vary_node ** knobs = (struct vary_node **) calloc(num_frames,sizeof(struct vary_node *));
   int i;
   double fnum;
-  for(i=0,i<lastop;i++){
+  for(i=0;i<lastop;i++){
     char* kname = op[i].op.vary.p->name;
     double startf = op[i].op.vary.start_frame;
     double endf = op[i].op.vary.end_frame;
@@ -389,7 +389,7 @@ void my_main() {
     printf("\n");
   }
   char filename[50];
-  sprintf(filename, "%s03d%s",name,j,".png");
+  sprintf(filename, "%s03%d%s",name,j,".png");
   save_extension(t,filename);
   }
   freeArrayList(knobs);
