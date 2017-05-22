@@ -209,7 +209,7 @@ void my_main() {
       char *kname = cur->name;
       double v = cur->value;
       SYMTAB * kindex = lookup_symbol(kname);
-      set_value(kindex,kname);
+      set_value(kindex,kval);
       cur = cur->next;
     }
 
